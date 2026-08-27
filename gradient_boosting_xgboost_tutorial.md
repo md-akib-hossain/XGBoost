@@ -75,9 +75,8 @@ $$\frac{\partial L}{\partial F(x)} = -(y - F(x))$$
 
 সাধারণভাবে যেকোনো loss function-এর জন্য (regression, classification, ranking — যেকোনো কিছু):
 $$
-r_{im} = -\left[\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right]_{F(x) = F_{m-1}(x)}
+r_{im} = -\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \quad \text{যেখানে } F(x) = F_{m-1}(x)
 $$
-
 এই $r_{im}$-কে বলে **pseudo-residual**, আর নতুন tree $h_m(x)$ এটার উপর ফিট করা হয়।
 
 ### ১.৩ পূর্ণ অ্যালগরিদম (Formal)
