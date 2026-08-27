@@ -72,7 +72,6 @@ $$L(y, F(x)) = \frac{1}{2}(y - F(x))^2$$
 $$\frac{\partial L}{\partial F(x)} = -(y - F(x))$$
 
 মানে **negative gradient = residual** ( $y - F(x)$ )। এই কারণেই যখন আমরা residual-এর উপর tree ফিট করি, তখন আসলে আমরা loss function-এর **negative gradient**-এর দিকে এগোচ্ছি — অর্থাৎ **Gradient Descent** করছি, কিন্তু parameter space-এ না, বরং **function space**-এ (একটা নতুন ফাংশন/tree যোগ করে করে loss কমানো হচ্ছে)। তাই নাম **Gradient Boosting**।
-
 # সাধারণভাবে যেকোনো loss function-এর জন্য (regression, classification, ranking — যেকোনো কিছু):
 
 $$
@@ -85,8 +84,7 @@ r_{im}
 \right|_{F(x)=F_{m-1}(x)}
 $$
 
-এই $r_{im}$-কে বলে **pseudo-residual**, আর নতুন tree $h_m(x)$ এটার উপর fit করা হয়।
-
+এই $r_{im}$-কে বলে **pseudo-residual**, আর নতুন tree $h_m(x)$ এটার উপর ফিট করা হয়।
 ### ১.৩ পূর্ণ অ্যালগরিদম (Formal)
 
 **ইনপুট**: ডেটা $\{(x_i, y_i)\}_{i=1}^n$, loss function $L$, iteration সংখ্যা $M$
