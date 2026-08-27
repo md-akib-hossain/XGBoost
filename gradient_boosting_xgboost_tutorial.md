@@ -96,8 +96,16 @@ $$F_0(x) = \arg\min_{\gamma} \sum_{i=1}^n L(y_i, \gamma)$$
 **Step 2** — প্রতিটা $m = 1$ থেকে $M$ পর্যন্ত:
 
 (a) Pseudo-residual হিসাব করা:
-$$r_{im} = -\left[\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right]_{F=F_{m-1}}, \quad i=1,\ldots,n$$
 
+```math
+r_{im}
+=
+-
+\left.
+\frac{\partial L(y_i, F(x_i))}
+{\partial F(x_i)}
+\right|_{F(x)=F_{m-1}(x)}
+```
 (b) একটা regression tree $h_m(x)$ ফিট করা $\{(x_i, r_{im})\}$ ডেটার উপর
 
 (c) প্রতিটা leaf $j$-এর জন্য optimal output value বের করা:
