@@ -71,7 +71,7 @@ $$L(y, F(x)) = \frac{1}{2}(y - F(x))^2$$
 এখন মজার ব্যাপার হলো — এই loss-কে $F(x)$-এর সাপেক্ষে derivative (gradient) নিলে কী পাই দেখুন:
 $$\frac{\partial L}{\partial F(x)} = -(y - F(x))$$
 
-মানে **negative gradient = residual** ($y - F(x)$)। এই কারণেই যখন আমরা residual-এর উপর tree ফিট করি, তখন আসলে আমরা loss function-এর **negative gradient**-এর দিকে এগোচ্ছি — অর্থাৎ **Gradient Descent** করছি, কিন্তু parameter space-এ না, বরং **function space**-এ (একটা নতুন ফাংশন/tree যোগ করে করে loss কমানো হচ্ছে)। তাই নাম **Gradient Boosting**।
+মানে **negative gradient = residual** ( $y - F(x)$ )। এই কারণেই যখন আমরা residual-এর উপর tree ফিট করি, তখন আসলে আমরা loss function-এর **negative gradient**-এর দিকে এগোচ্ছি — অর্থাৎ **Gradient Descent** করছি, কিন্তু parameter space-এ না, বরং **function space**-এ (একটা নতুন ফাংশন/tree যোগ করে করে loss কমানো হচ্ছে)। তাই নাম **Gradient Boosting**।
 
 সাধারণভাবে যেকোনো loss function-এর জন্য (regression, classification, ranking — যেকোনো কিছু):
 $$r_{im} = -\left[\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right]_{F(x) = F_{m-1}(x)}$$
