@@ -202,7 +202,9 @@ $$\text{Obj}^* = -\frac{1}{2}\sum_{j=1}^T \frac{G_j^2}{H_j + \lambda} + \gamma T
 **Split করা উচিত কিনা যাচাই করার সূত্র (Gain):**
 
 একটা node-কে Left ($L$) আর Right ($R$)-এ split করলে gain হয়:
-$$\text{Gain} = \frac{1}{2}\left[\underbrace{\frac{G_L^2}{H_L+\lambda}}_{\text{left leaf score}} + \underbrace{\frac{G_R^2}{H_R+\lambda}}_{\text{right leaf score}} - \underbrace{\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}}_{\text{split না করলে score}}\right] - \gamma$$
+```math
+\text{Gain} = \frac{1}{2}\left[\underbrace{\frac{G_L^2}{H_L+\lambda}}_{\text{left leaf score}} + \underbrace{\frac{G_R^2}{H_R+\lambda}}_{\text{right leaf score}} - \underbrace{\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}}_{\text{split না করলে score}}\right] - \gamma
+```
 
 **সহজ ভাষায়**: split করার পর score (accuracy-জাতীয় কিছু) কতটা বাড়ল, তা থেকে split করার "খরচ" ($\gamma$) বাদ দেওয়া হয়। যদি Gain পজিটিভ হয়, তাহলে split করা লাভজনক; নাহলে সেখানেই tree growth থামিয়ে দেওয়া হয় (এটাকে বলে **pruning** — XGBoost আসলে "backward pruning" করে, মানে প্রথমে গভীরে split করে তারপর negative gain-ওয়ালা branch কেটে ফেলে)।
 
