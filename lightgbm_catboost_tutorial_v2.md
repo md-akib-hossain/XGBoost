@@ -205,8 +205,9 @@ CatBoost প্রথমে ডেটাকে randomly একটা ক্র�
 **লক্ষ্য করুন**: কোনো row-ই কখনো নিজের target value ব্যবহার করেনি নিজেকে encode করতে! Leakage বন্ধ।
 
 **গাণিতিক সূত্র:**
-$$\hat{x}_i^k = \frac{\sum_{j=1}^{p-1} [x_{\sigma(j)}^k = x_{\sigma(p)}^k] \cdot y_{\sigma(j)} + a \cdot P}{\sum_{j=1}^{p-1} [x_{\sigma(j)}^k = x_{\sigma(p)}^k] + a}$$
-
+```math
+\hat{x}_i^k = \frac{\sum_{j=1}^{p-1} [x_{\sigma(j)}^k = x_{\sigma(p)}^k] \cdot y_{\sigma(j)} + a \cdot P}{\sum_{j=1}^{p-1} [x_{\sigma(j)}^k = x_{\sigma(p)}^k] + a}
+```
 এই সূত্রটা দেখতে জটিল মনে হলেও আসলে খুব সহজ কথা বলে:
 
 - $p$ = বর্তমান row-এর অবস্থান (position) permutation-এ
