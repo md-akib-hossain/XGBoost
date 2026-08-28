@@ -253,8 +253,9 @@ CatBoost-এর গাছ একটু অন্যরকম — **Symmetric Tre
 1. **Regularization হিসেবে কাজ করে**: গাছ কম "স্বাধীন" (flexible), তাই ডেটা কম মুখস্থ করতে পারে — overfitting কম হয়।
 2. **Prediction অবিশ্বাস্য দ্রুত**: যেহেতু প্রতিটা লেভেলে প্রশ্ন একই, তাই একটা নতুন sample-এর জন্য leaf খুঁজে বের করা মানে শুধু প্রতিটা লেভেলের উত্তর (হ্যাঁ/না = 1/0) একটা বাইনারি নম্বরে পরিণত করা:
 
-$$\text{leaf\_index} = \sum_{l=1}^{d} b_l \cdot 2^{l-1}, \quad b_l \in \{0,1\}$$
-
+```math
+\text{leaf\_index} = \sum_{l=1}^{d} b_l \cdot 2^{l-1}, \quad b_l \in \{0,1\}
+```
 এটা একদম bit-operation-এর মতো সহজ ও দ্রুত হিসাব — তাই CatBoost-এর inference (prediction) স্পিড খুব ভালো।
 
 ### ২.৬ CatBoost কোড — একদম শুরু থেকে
