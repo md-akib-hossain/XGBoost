@@ -71,11 +71,18 @@ $$L(y, F(x)) = \frac{1}{2}(y - F(x))^2$$
 এখন মজার ব্যাপার হলো — এই loss-কে $F(x)$-এর সাপেক্ষে derivative (gradient) নিলে কী পাই দেখুন:
 $$\frac{\partial L}{\partial F(x)} = -(y - F(x))$$
 
-মানে **negative gradient = residual** ($y - F(x)$)। এই কারণেই যখন আমরা residual-এর উপর tree ফিট করি, তখন আসলে আমরা loss function-এর **negative gradient**-এর দিকে এগোচ্ছি — অর্থাৎ **Gradient Descent** করছি, কিন্তু parameter space-এ না, বরং **function space**-এ (একটা নতুন ফাংশন/tree যোগ করে করে loss কমানো হচ্ছে)। তাই নাম **Gradient Boosting**।
-
+মানে **negative gradient = residual** ( $y - F(x)$ )। এই কারণেই যখন আমরা residual-এর উপর tree ফিট করি, তখন আসলে আমরা loss function-এর **negative gradient**-এর দিকে এগোচ্ছি — অর্থাৎ **Gradient Descent** করছি, কিন্তু parameter space-এ না, বরং **function space**-এ (একটা নতুন ফাংশন/tree যোগ করে করে loss কমানো হচ্ছে)। তাই নাম **Gradient Boosting**।
 সাধারণভাবে যেকোনো loss function-এর জন্য (regression, classification, ranking — যেকোনো কিছু):
-$$r_{im} = -\left[\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right]_{F(x) = F_{m-1}(x)}$$
 
+```math
+r_{im}
+=
+-
+\left.
+\frac{\partial L(y_i, F(x_i))}
+{\partial F(x_i)}
+\right|_{F(x)=F_{m-1}(x)}
+```
 এই $r_{im}$-কে বলে **pseudo-residual**, আর নতুন tree $h_m(x)$ এটার উপর ফিট করা হয়।
 
 ### ১.৩ পূর্ণ অ্যালগরিদম (Formal)
@@ -89,8 +96,16 @@ $$F_0(x) = \arg\min_{\gamma} \sum_{i=1}^n L(y_i, \gamma)$$
 **Step 2** — প্রতিটা $m = 1$ থেকে $M$ পর্যন্ত:
 
 (a) Pseudo-residual হিসাব করা:
-$$r_{im} = -\left[\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right]_{F=F_{m-1}}, \quad i=1,\ldots,n$$
 
+```math
+r_{im}
+=
+-
+\left.
+\frac{\partial L(y_i, F(x_i))}
+{\partial F(x_i)}
+\right|_{F(x)=F_{m-1}(x)}
+```
 (b) একটা regression tree $h_m(x)$ ফিট করা $\{(x_i, r_{im})\}$ ডেটার উপর
 
 (c) প্রতিটা leaf $j$-এর জন্য optimal output value বের করা:
@@ -187,7 +202,9 @@ $$\text{Obj}^* = -\frac{1}{2}\sum_{j=1}^T \frac{G_j^2}{H_j + \lambda} + \gamma T
 **Split করা উচিত কিনা যাচাই করার সূত্র (Gain):**
 
 একটা node-কে Left ($L$) আর Right ($R$)-এ split করলে gain হয়:
-$$\text{Gain} = \frac{1}{2}\left[\underbrace{\frac{G_L^2}{H_L+\lambda}}_{\text{left leaf score}} + \underbrace{\frac{G_R^2}{H_R+\lambda}}_{\text{right leaf score}} - \underbrace{\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}}_{\text{split না করলে score}}\right] - \gamma$$
+```math
+\text{Gain} = \frac{1}{2}\left[\underbrace{\frac{G_L^2}{H_L+\lambda}}_{\text{left leaf score}} + \underbrace{\frac{G_R^2}{H_R+\lambda}}_{\text{right leaf score}} - \underbrace{\frac{(G_L+G_R)^2}{H_L+H_R+\lambda}}_{\text{split না করলে score}}\right] - \gamma
+```
 
 **সহজ ভাষায়**: split করার পর score (accuracy-জাতীয় কিছু) কতটা বাড়ল, তা থেকে split করার "খরচ" ($\gamma$) বাদ দেওয়া হয়। যদি Gain পজিটিভ হয়, তাহলে split করা লাভজনক; নাহলে সেখানেই tree growth থামিয়ে দেওয়া হয় (এটাকে বলে **pruning** — XGBoost আসলে "backward pruning" করে, মানে প্রথমে গভীরে split করে তারপর negative gain-ওয়ালা branch কেটে ফেলে)।
 
